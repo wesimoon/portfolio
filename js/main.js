@@ -182,11 +182,41 @@ function copyEmail(event) {
 (function() {
   const qrImg = document.getElementById('qrCode');
   if (!qrImg) return;
-  const url = encodeURIComponent(window.location.href);
-  qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${url}`;
+
+  // 网站线上地址
+  var url = 'https://wesimoon.github.io/portfolio/';
+
+  function generateQR() {
+    // 优先使用客户端 QR 库（不依赖外部 API，国内也能用）
+    if (typeof QRCode !== 'undefined' && typeof QRCode.toDataURL === 'function') {
+      QRCode.toDataURL(url, {
+        width: 300,
+        margin: 2,
+        errorCorrectionLevel: 'M',
+        color: { dark: '#1C1C1C', light: '#FFFFFF' }
+      })
+        .then(function(dataUrl) {
+          qrImg.src = dataUrl;
+        })
+        .catch(function() {
+          fallbackAPI();
+        });
+    } else {
+      fallbackAPI();
+    }
+  }
+
+  function fallbackAPI() {
+    // 备用：外部 API（goQR.me）
+    qrImg.src = 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=' + encodeURIComponent(url);
+  }
+
+  // 如果图片加载失败，隐藏 QR 区域
   qrImg.onerror = function() {
     qrImg.parentElement.style.display = 'none';
   };
+
+  generateQR();
 })();
 
 console.log('🌱 王悦 · AI Product & Operations — 作品集已就绪');

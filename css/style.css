@@ -1148,8 +1148,8 @@ h1, h2, h3, h4 {
 }
 
 .footer__qr-img {
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: #fff;
