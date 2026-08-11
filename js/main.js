@@ -165,7 +165,7 @@ document.querySelectorAll('.nav__link, .nav__dropdown-item, .project-hero__back,
 
 // ----- Email: mailto + clipboard fallback -----
 function copyEmail(event) {
-  const email = 'wesimoo16@gmail.com';
+  const email = 'Wesimoo@outlook.com';
   // Copy to clipboard as safety net (works whether or not mailto succeeds)
   navigator.clipboard.writeText(email).then(() => {
     const link = event.target;
